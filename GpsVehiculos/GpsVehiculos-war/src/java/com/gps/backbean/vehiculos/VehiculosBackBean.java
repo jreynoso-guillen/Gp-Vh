@@ -6,6 +6,7 @@
 package com.gps.backbean.vehiculos;
 
 import com.gps.ejb.facades.AdmVehiculosFacadeLocal;
+import com.gps.ejb.utilerias.XMLTools;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -30,9 +31,15 @@ public class VehiculosBackBean implements Serializable{
         System.out.println("Entro");
         
         
-        String prueba = corridasFacade.HolaMundo();
+        //String prueba = corridasFacade.HolaMundo();
         
         System.out.println("Salio");
+        //return XMLTools.xmlQueryBase(sql,"base","hijo");
+        XMLTools xml = new XMLTools();
+        //String xmlConsult=face.conexion;
+        //
+        //List<String[]> lista= xml.parseXMLtoliststring(xmlConsult, "hijo")
+        
         
     }
     //set y gets

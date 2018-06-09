@@ -5,7 +5,7 @@
  */
 package com.gps.ejb.facades;
 
-import com.gps.ebj.entidades.Empresas;
+import com.gps.ejb.entidades.Empresas;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;

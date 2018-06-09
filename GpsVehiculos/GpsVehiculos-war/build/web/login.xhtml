@@ -27,7 +27,7 @@
                                 <p:password id="userPass" value="#{loginBackBean.contraseña}" placeholder="Contraseña" required="true" validatorMessage="Escriba Una contraseña"/>
                                 <br/>
                                 
-                                <p:commandButton value="Iniciar session" action="#{loginBackBean.login}"/>
+                                <p:commandButton value="Iniciar session" action="#{loginBackBean.login}" ajax="false"/>
                             
                         </h:form>
                         

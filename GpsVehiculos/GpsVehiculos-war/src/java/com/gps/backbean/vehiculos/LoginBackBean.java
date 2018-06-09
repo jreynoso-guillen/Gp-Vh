@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -61,6 +62,15 @@ public class LoginBackBean implements Serializable{
             
         }
         return "";
+    }
+    
+    public String logout(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        final HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        context.getExternalContext().getSessionMap().clear();
+        request.getSession(false).invalidate();
+        return "login";
     }
 
     public String getUsuario() {
