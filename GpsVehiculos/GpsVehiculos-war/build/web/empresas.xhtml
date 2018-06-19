@@ -21,6 +21,10 @@
                     <br/>
                     <p:panel>
                         <h:form id="formEmpresas">
+                            <p:growl id="growl" showDetail="true" sticky="false" />
+                            <center>
+                                <p:commandButton id="btnEm" update=":formEmpresas1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{empresasBackBean.nuevaEmpresaAgregar()}"/>
+                            </center>
                             <p:dataTable id="singleDT" var="obj" value="#{empresasBackBean.listaEmpresas}" selectionMode="simple" emptyMessage="No hay registros de empresas"
                                          rowKey="#{obj.idempresa}" widgetVar="empresasTable">
                                 <f:facet name="header">
@@ -41,9 +45,34 @@
                                 <p:column headerText="E-mail">
                                     <h:outputText value="#{obj.correo}"/>
                                 </p:column>
+                                <p:column headerText="Eliminar">
+                                    <p:commandButton value="Eliminar" actionListener="#{empresasBackBean.EliminarEmpresa(obj.idempresa)}" update=":formEmpresas:singleDT"/>
+                                </p:column>
                             </p:dataTable>
                         </h:form>
                     </p:panel>
+                    
+                        <p:dialog header="Datos de la empresa" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
+                            <h:form id="formEmpresas1">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Nombre de la empresa"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.nombre}"/>
+
+                                    <p:outputLabel value="Nombre de contacto"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.contacto}"/>
+
+                                    <p:outputLabel value="Telefono del contacto"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.telefono}"/>
+
+                                    <p:outputLabel value="E-mail"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.correo}"/>
+                                    
+
+                                </p:panelGrid>
+                                <p:commandButton value="Agregar" actionListener="#{empresasBackBean.guardarEmpresa}" oncomplete="PF('tablaDialog').hide()" update=":formEmpresas"/>
+                            </h:form>
+                        </p:dialog>
+                    
 
                     <!-- ************************************************************************************************************* --> 
             

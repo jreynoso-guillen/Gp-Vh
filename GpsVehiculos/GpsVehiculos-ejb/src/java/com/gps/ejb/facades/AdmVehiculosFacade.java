@@ -56,5 +56,29 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
             return XMLTools.xmlQueryBase(sql, "base", "hijo");
             
         }
+        
+        public String guardarEmpresas(Empresas e){
+            try{
+                em.persist(e);
+                em.flush();
+            }catch(Exception r){
+                return "error";
+            }
+            
+            return e.getIdempresa()+"";
+        }
+        
+        public String eliminarEmpresa(String id){
+            try{
+                System.out.println("---si eliminando"+id);
+                Empresas emp = em.find(Empresas.class, Integer.parseInt(id));
+                em.remove(emp);
+                em.flush();
+                return "";
+            }catch(Exception e){
+                System.out.println(e);
+                return "error";
+            }
+        }
     
 }

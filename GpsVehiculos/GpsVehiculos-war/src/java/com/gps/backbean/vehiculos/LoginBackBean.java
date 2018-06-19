@@ -70,8 +70,9 @@ public class LoginBackBean implements Serializable{
             FacesContext fctx = FacesContext.getCurrentInstance();
             ExternalContext ectx = fctx.getExternalContext();
             HttpSession session = (HttpSession) ectx.getSession(false);
-            sessionId = session.getId();
-            System.out.println(sessionId+"--idsesion");
+            session.setAttribute("sessionId", session.getId());
+            session.setAttribute("idUsuario", idUsuario);
+            
         }else{
             FacesMessage message = new FacesMessage(" Usuario o contraseña no valido. " );
             FacesContext.getCurrentInstance().addMessage(null, message);

@@ -5,6 +5,7 @@
  */
 package com.gps.ejb.facades;
 
+import com.gps.ejb.entidades.Empresas;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +20,9 @@ public interface AdmVehiculosFacadeLocal {
     public String login(String u, String c);
     
     public String cargaEmpresas();
+    
+    public String guardarEmpresas(Empresas e);
+    
+    public String eliminarEmpresa(String id);
     
 }
