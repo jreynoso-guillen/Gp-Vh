@@ -13,13 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -73,8 +72,8 @@ public class Vehiculos implements Serializable {
     @Column(name = "MODELO")
     private String modelo;
     @Size(max = 55)
-    @Column(name = "A\u00d1O")
-    private String año;
+    @Column(name = "AN")
+    private String an;
     @Size(max = 55)
     @Column(name = "PLACA")
     private String placa;
@@ -84,15 +83,21 @@ public class Vehiculos implements Serializable {
     @Size(max = 55)
     @Column(name = "MOTOR")
     private String motor;
-    @JoinColumn(name = "IDEMPRESA", referencedColumnName = "IDEMPRESA")
-    @ManyToOne(optional = false)
-    private Empresas idempresa;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IDEMPRESA")
+    private int idempresa;
 
     public Vehiculos() {
     }
 
     public Vehiculos(Integer idvehiculo) {
         this.idvehiculo = idvehiculo;
+    }
+
+    public Vehiculos(Integer idvehiculo, int idempresa) {
+        this.idvehiculo = idvehiculo;
+        this.idempresa = idempresa;
     }
 
     public Integer getIdvehiculo() {
@@ -199,12 +204,12 @@ public class Vehiculos implements Serializable {
         this.modelo = modelo;
     }
 
-    public String getAño() {
-        return año;
+    public String getAn() {
+        return an;
     }
 
-    public void setAño(String año) {
-        this.año = año;
+    public void setAn(String an) {
+        this.an = an;
     }
 
     public String getPlaca() {
@@ -231,11 +236,11 @@ public class Vehiculos implements Serializable {
         this.motor = motor;
     }
 
-    public Empresas getIdempresa() {
+    public int getIdempresa() {
         return idempresa;
     }
 
-    public void setIdempresa(Empresas idempresa) {
+    public void setIdempresa(int idempresa) {
         this.idempresa = idempresa;
     }
 

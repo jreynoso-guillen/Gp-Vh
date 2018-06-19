@@ -6,6 +6,8 @@
 package com.gps.ejb.facades;
 
 import com.gps.ejb.entidades.Empresas;
+import com.gps.ejb.entidades.Usuarios;
+import com.gps.ejb.utilerias.XMLTools;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -33,10 +35,26 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
             e.setNombrecontacto("Miguel padilla");
             e.setTelcontacto("4432426583");
             e.setCorreo("jreynoso@software.ti");
+            //comentario cualquiera
             em.persist(e);
             
             //em.remove(e);
         return "Hola Mundo desde el facade";
     }
+        
+        public String login(String u, String c){
+            String regresa="";
+            Usuarios usu = new Usuarios();
+            
+            String sql="SELECT * FROM `usuarios` u WHERE u.`USUAIO`="+u+" AND pass='"+c+"'";
+            
+            return XMLTools.xmlQueryBase(sql, "base", "hijo");
+        }
+        
+        public String cargaEmpresas(){
+            String sql="SELECT * FROM `empresas` e";
+            return XMLTools.xmlQueryBase(sql, "base", "hijo");
+            
+        }
     
 }

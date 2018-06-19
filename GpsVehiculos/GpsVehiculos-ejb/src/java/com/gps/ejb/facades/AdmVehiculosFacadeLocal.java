@@ -16,4 +16,8 @@ public interface AdmVehiculosFacadeLocal {
     
     String HolaMundo();
     
+    public String login(String u, String c);
+    
+    public String cargaEmpresas();
+    
 }

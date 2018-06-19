@@ -5,21 +5,28 @@
  */
 package com.gps.backbean.vehiculos;
 
+import com.gps.ejb.facades.AdmVehiculosFacade;
+import com.gps.ejb.facades.AdmVehiculosFacadeLocal;
+import com.gps.ejb.utilerias.XMLTools;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import static org.primefaces.component.contextmenu.ContextMenu.PropertyKeys.event;
 
 /**
  *
  * @author Kryzpy
  */
-@ManagedBean
 @SessionScoped
+@ManagedBean
 public class LoginBackBean implements Serializable{
     
     //Variables
@@ -27,32 +34,51 @@ public class LoginBackBean implements Serializable{
     private String contraseña = "";
     
     private String sessionId="";
+    private int idUsuario=0;
     
+    @EJB
+    private AdmVehiculosFacadeLocal vh;  
     
+    public LoginBackBean(){
+    }
     
+    //Accede a los beans
+    
+    public EmpresasBackBean getEmpresasBackBean(){
+        String backBeanName="EmpresasBackBean";
+        EmpresasBackBean eb = (EmpresasBackBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(backBeanName);
+        if(eb == null){
+            eb = new EmpresasBackBean();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(backBeanName,eb);
+        }
+        return (EmpresasBackBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(backBeanName);
+                
+    }
     
     //Funciones
     public String login() throws UnsupportedEncodingException{
-        System.out.println("Entro al Login!!!1");
         
-        System.out.println(usuario);
         
-        System.out.println(contraseña);
+        String xmlConsul=vh.login(usuario, contraseña);
+        XMLTools xml = new XMLTools();
+        List<String[]> lista= xml.parseXMLtoListString(xmlConsul, "hijo");
         
-        if(usuario.equals("admin")){
-            if(contraseña.equals("123")){
-                FacesContext fctx = FacesContext.getCurrentInstance();
-                ExternalContext ectx = fctx.getExternalContext();
-                HttpSession session = (HttpSession) ectx.getSession(false);
-                sessionId = session.getId();
-                return "index";
-                
-            }else{
-                return "";
-            }
+        if(lista.size()>0){
+            //si encontro al usuario y la contraseña
+            idUsuario=Integer.parseInt(lista.get(0)[0]);
+            System.out.println(idUsuario+"--idusuario");
+            FacesContext fctx = FacesContext.getCurrentInstance();
+            ExternalContext ectx = fctx.getExternalContext();
+            HttpSession session = (HttpSession) ectx.getSession(false);
+            sessionId = session.getId();
+            System.out.println(sessionId+"--idsesion");
         }else{
-            return "";
+            FacesMessage message = new FacesMessage(" Usuario o contraseña no valido. " );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return "login";
         }
+        
+        return "index";
         
     }
     
@@ -65,11 +91,12 @@ public class LoginBackBean implements Serializable{
     }
     
     public String logout(){
-        FacesContext context = FacesContext.getCurrentInstance();
+        /*FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
         final HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         context.getExternalContext().getSessionMap().clear();
-        request.getSession(false).invalidate();
+        request.getSession(false).invalidate();*/
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "login";
     }
 
@@ -87,6 +114,22 @@ public class LoginBackBean implements Serializable{
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
     
     
