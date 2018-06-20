@@ -55,11 +55,12 @@ public class VehiculosBackBean implements Serializable{
             Vehiculos temp= new Vehiculos();
             temp.setIdvehiculo(Integer.parseInt(lista.get(i)[0]));
             temp.setNombrevehiculo(lista.get(i)[1]);
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
             try{
-                Date date =formatter.parse(lista.get(i)[2]);
-                temp.setFechaalta(date);
-                
+                String fecha=lista.get(i)[2];
+                Date fechaD = null;
+                fechaD=formatoDelTexto.parse(fecha);
+                temp.setFechaalta(fechaD);
             }catch(ParseException e){
                 e.printStackTrace();
             }
@@ -70,8 +71,10 @@ public class VehiculosBackBean implements Serializable{
             temp.setClave(Integer.parseInt(lista.get(i)[6]));
             temp.setSaldo(lista.get(i)[7]);
             try{
-                Date date = formatter.parse(lista.get(i)[2]);
-                temp.setFechavencimiento(date);
+                String fecha=lista.get(i)[8];
+                Date fechaD = null;
+                fechaD=formatoDelTexto.parse(fecha);
+                temp.setFechavencimiento(fechaD);;
             }catch(ParseException e){
                 e.printStackTrace();
             }
