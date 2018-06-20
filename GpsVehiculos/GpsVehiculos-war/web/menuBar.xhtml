@@ -11,7 +11,7 @@
             <h:form>
                 <p:menubar autoDisplay="false">
                     <p:submenu label="Servicios">
-                        <p:menuitem value="Catalogo de Vehiculos"/>
+                        <p:menuitem value="Catalogo de Vehiculos" action="#{vehiculosBackBean.cargarVehiculos}"/>
                         <p:menuitem value="Catalogo de Empresas" action="#{empresasBackBean.cargarEmpresas}"/>
                     </p:submenu>
                     <p:menuitem value="Cerrar Sesion" action="#{loginBackBean.logout()}"/>

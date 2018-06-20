@@ -80,5 +80,17 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
                 return "error";
             }
         }
+        
+        public String cargaVehiculos(){
+            String sql="SELECT * FROM `vehiculos`";
+            
+            return XMLTools.xmlQueryBase(sql, "base", "hijo");
+        }
+        
+        public Empresas buscaEmpresa(int id){
+            Empresas e= em.find(Empresas.class, id);
+            
+            return e;
+        }
     
 }

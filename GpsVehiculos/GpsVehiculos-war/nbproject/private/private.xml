@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Github/Gp-Vh/GpsVehiculos/GpsVehiculos-war/web/empresas.xhtml</file>
-            <file>file:/C:/Github/Gp-Vh/GpsVehiculos/GpsVehiculos-war/web/menuBar.xhtml</file>
-            <file>file:/C:/Github/Gp-Vh/GpsVehiculos/GpsVehiculos-war/src/java/com/gps/backbean/vehiculos/EmpresasBackBean.java</file>
+            <file>file:/C:/Users/Kryzpy/Documents/GitHub/Gp-Vh/GpsVehiculos/GpsVehiculos-war/src/java/com/gps/backbean/vehiculos/EmpresasBackBean.java</file>
+            <file>file:/C:/Users/Kryzpy/Documents/GitHub/Gp-Vh/GpsVehiculos/GpsVehiculos-war/src/java/com/gps/backbean/vehiculos/VehiculosBackBean.java</file>
+            <file>file:/C:/Users/Kryzpy/Documents/GitHub/Gp-Vh/GpsVehiculos/GpsVehiculos-war/web/menuBar.xhtml</file>
+            <file>file:/C:/Users/Kryzpy/Documents/GitHub/Gp-Vh/GpsVehiculos/GpsVehiculos-war/web/vehiculos.xhtml</file>
+            <file>file:/C:/Users/Kryzpy/Documents/GitHub/Gp-Vh/GpsVehiculos/GpsVehiculos-war/web/empresas.xhtml</file>
         </group>
     </open-files>
 </project-private>

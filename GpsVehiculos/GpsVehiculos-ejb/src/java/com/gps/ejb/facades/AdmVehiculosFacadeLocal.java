@@ -25,4 +25,8 @@ public interface AdmVehiculosFacadeLocal {
     
     public String eliminarEmpresa(String id);
     
+    public String cargaVehiculos();
+    
+    public Empresas buscaEmpresa(int id);
+    
 }

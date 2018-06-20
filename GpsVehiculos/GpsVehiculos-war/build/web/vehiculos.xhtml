@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>           
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            </f:facet>
+        </h:head>
+        <h:body   >
+            <ui:composition template="./Templates/vehiculosTemplate.xhtml">
+                <ui:define name="Content">
+                
+            
+
+                    <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** --> 
+                    <br/>
+                        <h:form id="formVh">
+                            <p:commandButton id="btnEm" update=":formVh1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{vehiculosBackBean.agregarNuevoVh}"/>
+                            <p:dataTable value="#{vehiculosBackBean.listaVehiculos}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
+                                         selectionMode="simple" rowKey="#{e.idvehiculo}"  widgetVar="vehiculosTable"
+                                         rows="20" paginator="true" scrollable="true" 
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <f:facet name="header">
+                                    Vehiculos afiliados a Gps-Tracker
+                                </f:facet>
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{e.idvehiculo}"/>
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{e.nombrevehiculo}"/>
+                                </p:column>
+                                <p:column headerText="Fecha Alta">
+                                    <h:outputText value="#{e.fechaalta}"/>
+                                </p:column>
+                                <p:column headerText="Plataforma">
+                                    <h:outputText value="#{e.plataforma}"/>
+                                </p:column>
+                                <p:column headerText="IMEI">
+                                    <h:outputText value="#{e.imei}"/>
+                                </p:column>
+                                <p:column headerText="No Telefonico">
+                                    <h:outputText value="#{e.numerotelefonico}"/>
+                                </p:column>
+                                <p:column headerText="Clave">
+                                    <h:outputText value="#{e.clave}"/>
+                                </p:column>
+                                <p:column headerText="Saldo">
+                                    <h:outputText value="#{e.saldo}"/>
+                                </p:column>
+                                <p:column headerText="Fecha Vencimiento">
+                                    <h:outputText value="#{e.fechavencimiento}"/>
+                                </p:column>
+                                <p:column headerText="Tipo de cobro">
+                                    <h:outputText value="#{e.tipodecobro}"/>
+                                </p:column>
+                                <p:column headerText="Cuenta Telcel">
+                                    <h:outputText value="#{e.cuentatelcel}"/>
+                                </p:column>
+                                <p:column headerText="Marca">
+                                    <h:outputText value="#{e.marca}"/>
+                                </p:column>
+                                <p:column headerText="Modelo">
+                                    <h:outputText value="#{e.modelo}"/>
+                                </p:column>
+                                <p:column headerText="Año">
+                                    <h:outputText value="#{e.an}"/>
+                                </p:column>
+                                <p:column headerText="Placa">
+                                    <h:outputText value="#{e.placa}"/>
+                                </p:column>
+                                <p:column headerText="Serie">
+                                    <h:outputText value="#{e.serie}"/>
+                                </p:column>
+                                <p:column headerText="Motor">
+                                    <h:outputText value="#{e.motor}"/>
+                                </p:column>
+                                <p:column headerText="Empresa">
+                                    <p:commandButton value="Datos Empresa" update=":formVh2" actionListener="#{vehiculosBackBean.datosEmpresa(e.idempresa)}" oncomplete="PF('tablaDialog2').show()"/>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </h:form>
+                    
+                    <p:dialog header="Datos del Vehiculo" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
+                        <h:form id="formVh1">
+                            <p:panelGrid columns="2">
+
+
+                            </p:panelGrid>
+                            <p:commandButton value="Agregar"  oncomplete="PF('tablaDialog').hide()" update=":formVh"/>
+                        </h:form>
+                    </p:dialog>
+                    
+                    
+                    <p:dialog header="Datos de la empresa" widgetVar="tablaDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
+                        <h:form id="formVh2">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Nombre Empresa"/>
+                                <p:outputLabel value="#{vehiculosBackBean.empTemp.nombreempresa}"/>
+
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                    <!-- ************************************************************************************************************* --> 
+            
+                </ui:define>
+            </ui:composition>    
+        </h:body>
+    </f:view>
+</html>
+
