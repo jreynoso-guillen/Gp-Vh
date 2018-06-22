@@ -25,7 +25,7 @@
                             <center>
                                 <p:commandButton id="btnEm" update=":formEmpresas1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{empresasBackBean.nuevaEmpresaAgregar()}"/>
                             </center>
-                            <p:dataTable id="singleDT" var="obj" value="#{empresasBackBean.listaEmpresas}" selectionMode="simple" emptyMessage="No hay registros de empresas"
+                            <p:dataTable id="singleDT" var="obj" value="#{empresasBackBean.listaEmpresas}" selectionMode="single" emptyMessage="No hay registros de empresas"
                                          rowKey="#{obj.idempresa}" widgetVar="empresasTable">
                                 <f:facet name="header">
                                     Empresas afiliadas a Gps-Tracker

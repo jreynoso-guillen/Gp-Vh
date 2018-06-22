@@ -21,66 +21,81 @@
                     <br/>
                         <h:form id="formVh">
                             <p:commandButton id="btnEm" update=":formVh1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{vehiculosBackBean.agregarNuevoVh}"/>
-                            <p:dataTable value="#{vehiculosBackBean.listaVehiculos}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
-                                         selectionMode="single" rowKey="#{e.idvehiculo}"  
+                            <p:dataTable value="#{vehiculosBackBean.listaVh}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
+                                         selectionMode="single" rowKey="#{e.id}"  
                                          rows="20" paginator="true" scrollable="true" scrollWidth="95%" style="font-size: 16px !important;"
+                                         
                                          >
                                 <f:facet name="header">
                                     Vehiculos afiliados a Gps-Tracker
+                                    <p:commandButton id="toggler" type="button" value="Columnas" style="float:right" icon="ui-icon-calculator" />
+                                    <p:columnToggler datasource="singleDT" trigger="toggler" />
                                 </f:facet>
                                 <p:column headerText="Id" width="30">
-                                    <h:outputText value="#{e.idvehiculo}"/>
+                                    <h:outputText value="#{e.id}"/>
                                 </p:column>
-                                <p:column headerText="Nombre" filterBy="#{e.nombrevehiculo}" width="300" filterMatchMode="contains" >
-                                    <p:inputText value="#{e.nombrevehiculo}"/>
+                                <p:column headerText="Nombre" filterBy="#{e.nombre}" width="300" filterMatchMode="contains" >
+                                    <h:outputText value="#{e.nombre}"/>
                                 </p:column>
-                                <p:column headerText="Fecha Alta" filterBy="#{e.fechaalta}" width="250">
-                                    <p:calendar value="#{e.fechaalta}" showOn="button"/>
+                                <p:column headerText="Fecha Alta"  width="250">
+                                    <h:outputText value="#{e.fechaAlta}">
+                                        <f:convertDateTime pattern="dd-MM-yyyy " />
+                                    </h:outputText>
+                                    
                                 </p:column>
                                 <p:column headerText="Plataforma" width="200">
-                                    <p:inputText value="#{e.plataforma}"/>
+                                    <h:outputText value="#{e.plataforma}"/>
                                 </p:column>
                                 <p:column headerText="IMEI" width="200">
-                                    <p:inputText value="#{e.imei}"/>
+                                    <h:outputText value="#{e.IMEI}"/>
                                 </p:column>
                                 <p:column headerText="No Telefonico" width="200">
-                                    <p:inputText value="#{e.numerotelefonico}"/>
+                                    <h:outputText value="#{e.numeroTelefono}"/>
                                 </p:column>
                                 <p:column headerText="Clave" width="200">
-                                    <p:inputText value="#{e.clave}"/>
+                                    <h:outputText value="#{e.clave}"/>
                                 </p:column>
                                 <p:column headerText="Saldo" width="200">
                                     <p:inputText value="#{e.saldo}"/>
                                 </p:column>
-                                <p:column headerText="Fecha Vencimiento" width="200">
-                                    <p:calendar value="#{e.fechavencimiento}" showOn="button"/>
+                                <p:column headerText="Fecha Vencimiento" filterBy="#{e.fechaVenceS}" filterMatchMode="contains" width="250">
+                                    <p:calendar value="#{e.fechaVence}" showOn="button"/>
                                 </p:column>
                                 <p:column headerText="Tipo de cobro" width="200">
-                                    <p:inputText value="#{e.tipodecobro}"/>
+                                    <h:outputText value="#{e.tipoCobro}"/>
                                 </p:column>
                                 <p:column headerText="Cuenta Telcel" width="200">
-                                    <p:inputText value="#{e.cuentatelcel}"/>
+                                    <h:outputText value="#{e.cuenta}"/>
                                 </p:column>
                                 <p:column headerText="Marca" width="200">
-                                    <p:inputText value="#{e.marca}"/>
+                                    <h:outputText value="#{e.marca}"/>
                                 </p:column>
                                 <p:column headerText="Modelo" width="200">
-                                    <p:inputText value="#{e.modelo}"/>
+                                    <h:outputText value="#{e.modelo}"/>
                                 </p:column>
                                 <p:column headerText="Año" width="200">
-                                    <p:inputText value="#{e.an}"/>
+                                    <h:outputText value="#{e.an}"/>
                                 </p:column>
                                 <p:column headerText="Placa" width="200">
-                                    <p:inputText value="#{e.placa}"/>
+                                    <h:outputText value="#{e.placa}"/>
                                 </p:column>
                                 <p:column headerText="Serie" width="200">
-                                    <p:inputText value="#{e.serie}"/>
+                                    <h:outputText value="#{e.serie}"/>
                                 </p:column>
+                                
                                 <p:column headerText="Motor" width="200">
-                                    <p:inputText value="#{e.motor}"/>
+                                    <h:outputText value="#{e.motor}"/>
+                                </p:column>
+                                <p:column headerText="Activo" width="200" ><center>
+                                    <p:selectBooleanCheckbox value="#{e.status}" style="border: 0px !important;"/></center>
                                 </p:column>
                                 <p:column headerText="Empresa" width="200">
-                                    <p:commandButton value="Datos Empresa" update=":formVh2" actionListener="#{vehiculosBackBean.datosEmpresa(e.idempresa)}" oncomplete="PF('tablaDialog2').show()"/>
+                                    <p:selectOneMenu id="somE" value="#{e.empresa}" >
+                                        <f:selectItems  value="#{vehiculosBackBean.listaEmpresas}" var="vh" itemLabel="#{vh.nombre}" itemValue="#{vh.id}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column headerText="Guardar" width="200">
+                                    <p:commandButton value="Guardar" actionListener="#{vehiculosBackBean.modificaVh(e)}"/>
                                 </p:column>
                                 
                             </p:dataTable>

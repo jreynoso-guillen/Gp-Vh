@@ -10,7 +10,7 @@ package com.gps.backbean.objectVehiculos;
  * @author toño
  */
 public class empresaObj {
-    
+    private int id;
     private String nombre;
     private String contacto;
     private String telefono;
@@ -48,6 +48,14 @@ public class empresaObj {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     
