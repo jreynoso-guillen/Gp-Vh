@@ -32,58 +32,54 @@
                                     <h:outputText value="#{e.idvehiculo}"/>
                                 </p:column>
                                 <p:column headerText="Nombre" filterBy="#{e.nombrevehiculo}" width="300" filterMatchMode="contains" >
-                                    <h:outputText value="#{e.nombrevehiculo}"/>
+                                    <p:inputText value="#{e.nombrevehiculo}"/>
                                 </p:column>
-                                <p:column headerText="Fecha Alta" width="120">
-                                    <h:outputText value="#{e.fechaalta}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                <p:column headerText="Fecha Alta" filterBy="#{e.fechaalta}" width="250">
+                                    <p:calendar value="#{e.fechaalta}" showOn="button"/>
                                 </p:column>
-                                <p:column headerText="Plataforma" width="180">
-                                    <h:outputText value="#{e.plataforma}"/>
+                                <p:column headerText="Plataforma" width="200">
+                                    <p:inputText value="#{e.plataforma}"/>
                                 </p:column>
-                                <p:column headerText="IMEI" width="150">
-                                    <h:outputText value="#{e.imei}"/>
+                                <p:column headerText="IMEI" width="200">
+                                    <p:inputText value="#{e.imei}"/>
                                 </p:column>
-                                <p:column headerText="No Telefonico" width="100">
-                                    <h:outputText value="#{e.numerotelefonico}"/>
+                                <p:column headerText="No Telefonico" width="200">
+                                    <p:inputText value="#{e.numerotelefonico}"/>
                                 </p:column>
-                                <p:column headerText="Clave" width="130">
-                                    <h:outputText value="#{e.clave}"/>
+                                <p:column headerText="Clave" width="200">
+                                    <p:inputText value="#{e.clave}"/>
                                 </p:column>
-                                <p:column headerText="Saldo" width="130">
-                                    <h:outputText value="#{e.saldo}"/>
+                                <p:column headerText="Saldo" width="200">
+                                    <p:inputText value="#{e.saldo}"/>
                                 </p:column>
-                                <p:column headerText="Fecha Vencimiento" width="120">
-                                    <h:outputText value="#{e.fechavencimiento}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
+                                <p:column headerText="Fecha Vencimiento" width="200">
+                                    <p:calendar value="#{e.fechavencimiento}" showOn="button"/>
                                 </p:column>
-                                <p:column headerText="Tipo de cobro" width="130">
-                                    <h:outputText value="#{e.tipodecobro}"/>
+                                <p:column headerText="Tipo de cobro" width="200">
+                                    <p:inputText value="#{e.tipodecobro}"/>
                                 </p:column>
-                                <p:column headerText="Cuenta Telcel" width="150">
-                                    <h:outputText value="#{e.cuentatelcel}"/>
+                                <p:column headerText="Cuenta Telcel" width="200">
+                                    <p:inputText value="#{e.cuentatelcel}"/>
                                 </p:column>
-                                <p:column headerText="Marca" width="150">
-                                    <h:outputText value="#{e.marca}"/>
+                                <p:column headerText="Marca" width="200">
+                                    <p:inputText value="#{e.marca}"/>
                                 </p:column>
-                                <p:column headerText="Modelo" width="150">
-                                    <h:outputText value="#{e.modelo}"/>
+                                <p:column headerText="Modelo" width="200">
+                                    <p:inputText value="#{e.modelo}"/>
                                 </p:column>
-                                <p:column headerText="Año" width="100">
-                                    <h:outputText value="#{e.an}"/>
+                                <p:column headerText="Año" width="200">
+                                    <p:inputText value="#{e.an}"/>
                                 </p:column>
-                                <p:column headerText="Placa" width="160">
-                                    <h:outputText value="#{e.placa}"/>
+                                <p:column headerText="Placa" width="200">
+                                    <p:inputText value="#{e.placa}"/>
                                 </p:column>
-                                <p:column headerText="Serie" width="80">
-                                    <h:outputText value="#{e.serie}"/>
+                                <p:column headerText="Serie" width="200">
+                                    <p:inputText value="#{e.serie}"/>
                                 </p:column>
-                                <p:column headerText="Motor" width="150">
-                                    <h:outputText value="#{e.motor}"/>
+                                <p:column headerText="Motor" width="200">
+                                    <p:inputText value="#{e.motor}"/>
                                 </p:column>
-                                <p:column headerText="Empresa" width="120">
+                                <p:column headerText="Empresa" width="200">
                                     <p:commandButton value="Datos Empresa" update=":formVh2" actionListener="#{vehiculosBackBean.datosEmpresa(e.idempresa)}" oncomplete="PF('tablaDialog2').show()"/>
                                 </p:column>
                                 
