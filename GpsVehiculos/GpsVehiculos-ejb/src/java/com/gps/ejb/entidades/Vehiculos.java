@@ -87,6 +87,8 @@ public class Vehiculos implements Serializable {
     @NotNull
     @Column(name = "IDEMPRESA")
     private int idempresa;
+    @Column(name = "STATUS")
+    private Boolean status;
 
     public Vehiculos() {
     }
@@ -242,6 +244,14 @@ public class Vehiculos implements Serializable {
 
     public void setIdempresa(int idempresa) {
         this.idempresa = idempresa;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override
