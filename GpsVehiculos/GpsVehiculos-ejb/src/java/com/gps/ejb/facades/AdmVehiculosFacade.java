@@ -7,6 +7,7 @@ package com.gps.ejb.facades;
 
 import com.gps.ejb.entidades.Empresas;
 import com.gps.ejb.entidades.Usuarios;
+import com.gps.ejb.entidades.Vehiculos;
 import com.gps.ejb.utilerias.XMLTools;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -91,6 +92,39 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
             Empresas e= em.find(Empresas.class, id);
             
             return e;
+        }
+        
+        public String modifica(Vehiculos v){
+            System.out.println("segundo");
+            Vehiculos vh= new Vehiculos();
+            vh= em.find(Vehiculos.class, v.getIdvehiculo());
+            
+            if(vh!=null){
+                vh.setStatus(v.getStatus());
+                vh.setSaldo(v.getSaldo());
+                vh.setFechavencimiento(v.getFechavencimiento());
+                em.merge(vh);
+                em.flush();
+                return"exito";
+            }else{
+                return "error";
+            }
+            
+            
+        }
+        
+        public String guardaVh(Vehiculos v){
+            
+            try{
+                em.persist(v);
+                em.flush();
+                return v.getIdvehiculo()+" "+v.getNombrevehiculo();
+            }catch(Exception e){
+                return "error";
+            }
+            
+            
+            
         }
     
 }

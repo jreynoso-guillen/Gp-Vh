@@ -31,7 +31,7 @@ public class vehiculoObj {
     private String placa;
     private String serie;
     private String motor;
-    private String empresa;
+    private int empresa;
     private boolean status;
     
     public vehiculoObj(){
@@ -161,11 +161,11 @@ public class vehiculoObj {
         this.motor = motor;
     }
 
-    public String getEmpresa() {
+    public int getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(String empresa) {
+    public void setEmpresa(int empresa) {
         this.empresa = empresa;
     }
 

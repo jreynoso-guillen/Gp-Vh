@@ -20,6 +20,7 @@
                     <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** --> 
                     <br/>
                         <h:form id="formVh">
+                            <p:growl id="growl" showDetail="true" sticky="false" />
                             <p:commandButton id="btnEm" update=":formVh1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{vehiculosBackBean.agregarNuevoVh}"/>
                             <p:dataTable value="#{vehiculosBackBean.listaVh}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
                                          selectionMode="single" rowKey="#{e.id}"  
@@ -64,7 +65,7 @@
                                 <p:column headerText="Tipo de cobro" width="200">
                                     <h:outputText value="#{e.tipoCobro}"/>
                                 </p:column>
-                                <p:column headerText="Cuenta Telcel" width="200">
+                                <p:column headerText="Cuenta" width="200">
                                     <h:outputText value="#{e.cuenta}"/>
                                 </p:column>
                                 <p:column headerText="Marca" width="200">
@@ -95,7 +96,7 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column headerText="Guardar" width="200">
-                                    <p:commandButton value="Guardar" actionListener="#{vehiculosBackBean.modificaVh(e)}"/>
+                                    <p:commandButton value="Guardar" actionListener="#{vehiculosBackBean.modificaVh(e)}" update="formVh" ajax="false"/>
                                 </p:column>
                                 
                             </p:dataTable>
@@ -103,22 +104,69 @@
                     
                     <p:dialog header="Datos del Vehiculo" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
                         <h:form id="formVh1">
-                            <p:panelGrid columns="2">
-
-
+                            <p:panelGrid columns="2" style="border: 0px !important;">
+                                <p:outputLabel value="Nombre vehiculo"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.nombre}" required="true"/>
+                                
+                                <p:outputLabel value="Fecha de Alta"/>
+                                <p:calendar value="#{vehiculosBackBean.vhTemp.fechaAlta}" showOn="button" required="true"/>
+                                
+                                <p:outputLabel value="Plataforma"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.plataforma}" required="true"/>
+                                
+                                <p:outputLabel value="IMEI"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.IMEI}" required="true"/>
+                                
+                                <p:outputLabel value="Numero telefonico"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.numeroTelefono}" required="true"/>
+                                
+                                <p:outputLabel value="Clave "/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.clave}" required="true"/>
+                                
+                                <p:outputLabel value="Saldo"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.saldo}" required="true"/>
+                                
+                                <p:outputLabel value="Fecha de vencimiento"/>
+                                <p:calendar value="#{vehiculosBackBean.vhTemp.fechaVence}" showOn="button" required="true"/>
+                                
+                                <p:outputLabel value="Tipo de cobro"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.tipoCobro}" required="true"/>
+                                
+                                <p:outputLabel value="Cuenta"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.cuenta}" required="true"/>
+                                
+                                <p:outputLabel value="Marca"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.marca}" required="true"/>
+                                
+                                <p:outputLabel value="Modelo"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.modelo}" required="true"/>
+                                
+                                <p:outputLabel value="Año"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.an}" required="true"/>
+                                
+                                <p:outputLabel value="Placa"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.placa}" required="true"/>
+                                
+                                <p:outputLabel value="Serie"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.serie}" required="true"/>
+                                
+                                <p:outputLabel value="Motor"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.motor}" required="true"/>
+                                
+                                <p:outputLabel value="Empresa"/>
+                                <p:selectOneMenu value="#{vehiculosBackBean.vhTemp.empresa}">
+                                    <f:selectItems value="#{vehiculosBackBean.listaEmpresas}" var="empresa" itemLabel="#{empresa.nombre}" itemValue="#{empresa.id}"/>
+                                </p:selectOneMenu>
+                                
                             </p:panelGrid>
-                            <p:commandButton value="Agregar"  oncomplete="PF('tablaDialog').hide()" update=":formVh"/>
+                            <p:commandButton value="Agregar" actionListener="#{vehiculosBackBean.guardaVh}" oncomplete="PF('tablaDialog').hide()" update=":formVh"/>
                         </h:form>
                     </p:dialog>
                     
                     
                     <p:dialog header="Datos de la empresa" widgetVar="tablaDialog2" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
                         <h:form id="formVh2">
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Nombre Empresa"/>
-                                <p:outputLabel value="#{vehiculosBackBean.empTemp.nombreempresa}"/>
-
-                            </p:panelGrid>
+                            
                         </h:form>
                     </p:dialog>
                     <!-- ************************************************************************************************************* --> 

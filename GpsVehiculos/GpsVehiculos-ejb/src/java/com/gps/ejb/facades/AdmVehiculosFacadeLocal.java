@@ -6,6 +6,7 @@
 package com.gps.ejb.facades;
 
 import com.gps.ejb.entidades.Empresas;
+import com.gps.ejb.entidades.Vehiculos;
 import javax.ejb.Local;
 
 /**
@@ -28,5 +29,9 @@ public interface AdmVehiculosFacadeLocal {
     public String cargaVehiculos();
     
     public Empresas buscaEmpresa(int id);
+    
+    public String modifica(Vehiculos v);
+    
+    public String guardaVh(Vehiculos v);
     
 }

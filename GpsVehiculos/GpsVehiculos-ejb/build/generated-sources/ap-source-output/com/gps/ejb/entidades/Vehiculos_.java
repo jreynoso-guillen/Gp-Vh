@@ -27,6 +27,7 @@ public abstract class Vehiculos_ {
 	public static volatile SingularAttribute<Vehiculos, String> imei;
 	public static volatile SingularAttribute<Vehiculos, String> tipodecobro;
 	public static volatile SingularAttribute<Vehiculos, String> placa;
+	public static volatile SingularAttribute<Vehiculos, Boolean> status;
 
 }
 

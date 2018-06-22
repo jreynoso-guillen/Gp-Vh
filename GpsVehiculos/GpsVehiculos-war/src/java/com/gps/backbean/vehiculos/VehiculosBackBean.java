@@ -21,8 +21,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Scope;
 
 /**
@@ -42,7 +44,7 @@ public class VehiculosBackBean implements Serializable{
     private vehiculoObj vhT;
     private List<empresaObj> listaEmpresas;
     
-    private Vehiculos vhTemp;
+    private vehiculoObj vhTemp;
     
     private Empresas empTemp;
 
@@ -100,7 +102,7 @@ public class VehiculosBackBean implements Serializable{
             temp.setSerie(lista.get(i)[15]);
             temp.setMotor(lista.get(i)[16]);
             Empresas nombreEmpresa=vh.buscaEmpresa(Integer.parseInt(lista.get(i)[17]));
-            temp.setEmpresa(nombreEmpresa.getIdempresa()+"");
+            temp.setEmpresa(nombreEmpresa.getIdempresa());
             if(lista.get(i)[18].equals("1")){
                 temp.setStatus(true);
             }else{
@@ -130,14 +132,63 @@ public class VehiculosBackBean implements Serializable{
     } 
     
     public void agregarNuevoVh(){
-        vhTemp= new Vehiculos();
+        vhTemp= new vehiculoObj();
     }
     
     
     public void modificaVh(vehiculoObj obj){
+        System.out.println("entrando");
+        Vehiculos vt = new Vehiculos();
+        vt.setIdvehiculo(obj.getId());
+        vt.setSaldo(obj.getSaldo());
+        vt.setFechavencimiento(obj.getFechaVence());
+        vt.setStatus(obj.isStatus());
+        
+        try{
+            String resul=vh.modifica(vt);
+            FacesMessage message = new FacesMessage(" Campo Modificado con exito " );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        }catch(Exception e){
+            FacesMessage message = new FacesMessage(" Error al modificar campo " );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+            
+
+        
+        cargarVehiculos();
         
     }
    
+    public void guardaVh(){
+        Vehiculos v = new Vehiculos();
+        v.setNombrevehiculo(vhTemp.getNombre());
+        v.setFechaalta(vhTemp.getFechaAlta());
+        v.setPlataforma(vhTemp.getPlataforma());
+        v.setImei(vhTemp.getIMEI());
+        v.setNumerotelefonico(vhTemp.getNumeroTelefono());
+        v.setClave(vhTemp.getClave());
+        v.setSaldo(vhTemp.getSaldo());
+        v.setFechavencimiento(vhTemp.getFechaVence());
+        v.setTipodecobro(vhTemp.getTipoCobro());
+        v.setCuentatelcel(vhTemp.getCuenta());
+        v.setMarca(vhTemp.getMarca());
+        v.setModelo(vhTemp.getModelo());
+        v.setAn(vhTemp.getAn());
+        v.setPlaca(vhTemp.getPlaca());
+        v.setSerie(vhTemp.getSerie());
+        v.setMotor(vhTemp.getMotor());
+        v.setIdempresa((vhTemp.getEmpresa()));
+        
+        String resul=vh.guardaVh(v);
+        if(!resul.equals("error")){
+            FacesMessage message = new FacesMessage(" Guardado con exito " );
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        
+        cargarVehiculos();
+    }
     
     //funcinones
     //set y gets
@@ -150,13 +201,15 @@ public class VehiculosBackBean implements Serializable{
         this.listaVehiculos = listaVehiculos;
     }
 
-     public Vehiculos getVhTemp() {
+    public vehiculoObj getVhTemp() {
         return vhTemp;
     }
 
-    public void setVhTemp(Vehiculos vhTemp) {
+    public void setVhTemp(vehiculoObj vhTemp) {
         this.vhTemp = vhTemp;
     }
+
+
 
     public Empresas getEmpTemp() {
         return empTemp;
