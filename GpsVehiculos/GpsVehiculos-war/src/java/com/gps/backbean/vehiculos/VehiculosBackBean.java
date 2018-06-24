@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Scope;
+import org.primefaces.event.ToggleEvent;
+import org.primefaces.model.Visibility;
 
 /**
  *
@@ -47,13 +50,23 @@ public class VehiculosBackBean implements Serializable{
     private vehiculoObj vhTemp;
     
     private Empresas empTemp;
+    
+    private List<Boolean> list;
 
     public VehiculosBackBean(){
+        listaEmpresas = null;
+        vhTemp= new vehiculoObj();
+        listaVh= new ArrayList<>();
+        list=  Arrays.asList(false,true,false,false,false,true,true,true,true,true,true,false,false,false,false,false,false,true,true);
+        //list = Arrays.asList(false, true, true);
+    }
+    public void onToggle(ToggleEvent e) {
+    list.set((Integer) e.getData(), e.getVisibility() == Visibility.VISIBLE);
     }
     
     public String cargarVehiculos(){
         System.out.println("Cargando vehiculos");
-        listaVehiculos = new ArrayList<>();
+        //listaVehiculos = new ArrayList<>();
         listaVh= new ArrayList<>();
         String xmlConsul=vh.cargaVehiculos();
         XMLTools xml = new XMLTools();
@@ -64,9 +77,10 @@ public class VehiculosBackBean implements Serializable{
             temp.setId(Integer.parseInt(lista.get(i)[0]));
             temp.setNombre(lista.get(i)[1]);
             SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatoDelTexto2 = new SimpleDateFormat("dd-MM-yyy");
+            SimpleDateFormat formatoDelTexto2 = new SimpleDateFormat("dd-MM-yyyy");
             try{
                 String fecha=lista.get(i)[2];
+                
                 Date fechaD = null;
                 fechaD=formatoDelTexto.parse(fecha);
                 fecha=formatoDelTexto2.format(fechaD);
@@ -83,10 +97,14 @@ public class VehiculosBackBean implements Serializable{
             temp.setSaldo(lista.get(i)[7]);
             try{
                 String fecha=lista.get(i)[8];
-                Date fechaD = null;
+                System.out.println(fecha+"--");
+                Date fechaD;
                 fechaD=formatoDelTexto.parse(fecha);
-                fecha=formatoDelTexto2.format(fechaD);
-                temp.setFechaVenceS(fecha);
+                System.out.println(fechaD+"Date");
+                String fecha2;
+                fecha2=formatoDelTexto2.format(fechaD);
+                temp.setFechaVenceS(fecha2);
+                System.out.println(fecha2+"----");
                 fechaD=formatoDelTexto.parse(fecha);
                 
                 temp.setFechaVence(fechaD);;
@@ -132,7 +150,7 @@ public class VehiculosBackBean implements Serializable{
     } 
     
     public void agregarNuevoVh(){
-        vhTemp= new vehiculoObj();
+        //vhTemp= null;
     }
     
     
@@ -146,18 +164,16 @@ public class VehiculosBackBean implements Serializable{
         
         try{
             String resul=vh.modifica(vt);
-            FacesMessage message = new FacesMessage(" Campo Modificado con exito " );
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje", "Guardado con éxito!"));
         
         }catch(Exception e){
-            FacesMessage message = new FacesMessage(" Error al modificar campo " );
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Algo fallo al modificar el campo"));
         }
 
             
 
-        
-        cargarVehiculos();
+        vhTemp= new vehiculoObj();
+        //cargarVehiculos();
         
     }
    
@@ -183,8 +199,7 @@ public class VehiculosBackBean implements Serializable{
         
         String resul=vh.guardaVh(v);
         if(!resul.equals("error")){
-            FacesMessage message = new FacesMessage(" Guardado con exito " );
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Guardado con éxito!"));
         }
         
         cargarVehiculos();
@@ -249,6 +264,14 @@ public class VehiculosBackBean implements Serializable{
 
     public void setListaEmpresas(List<empresaObj> listaEmpresas) {
         this.listaEmpresas = listaEmpresas;
+    }
+
+    public List<Boolean> getList() {
+        return list;
+    }
+
+    public void setList(List<Boolean> list) {
+        this.list = list;
     }
 
   
