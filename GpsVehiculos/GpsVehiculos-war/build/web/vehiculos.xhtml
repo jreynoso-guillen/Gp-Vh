@@ -62,7 +62,7 @@
                                     <p:inputText value="#{e.saldo}"/>
                                 </p:column>
                                 <p:column headerText="Fecha Vencimiento" filterBy="#{e.fechaVenceS}" filterMatchMode="contains" width="250" visible="#{vehiculosBackBean.list[8]}">
-                                    <p:calendar value="#{e.fechaVence}" pattern="dd-MM-yyyy" showOn="button"/>
+                                    <p:calendar value="#{e.fechaVence}" pattern="dd-MM-yyyy" showOn="button" onchange="#{vehiculosBackBean.onDateSelected(e.fechaVence)}"/>
                                 </p:column>
                                 <p:column headerText="Tipo de cobro" width="200" visible="#{vehiculosBackBean.list[9]}">
                                     <h:outputText value="#{e.tipoCobro}"/>
@@ -154,6 +154,9 @@
                                 
                                 <p:outputLabel value="Motor"/>
                                 <p:inputText value="#{vehiculosBackBean.vhTemp.motor}" required="true"/>
+                                
+                                <p:outputLabel value="Activo"/>
+                                <p:selectBooleanCheckbox value="#{vehiculosBackBean.vhTemp.status}" /> 
                                 
                                 <p:outputLabel value="Empresa"/>
                                 <p:selectOneMenu value="#{vehiculosBackBean.vhTemp.empresa}">

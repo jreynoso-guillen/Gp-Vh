@@ -39,7 +39,7 @@ public class EmpresasBackBean implements Serializable{
     private empresaObj tempEmpresa=null;
     
     public EmpresasBackBean (){
-        
+        listaEmpresas = new ArrayList<>();
     }
     
     
@@ -66,6 +66,8 @@ public class EmpresasBackBean implements Serializable{
             aux.setNombrecontacto(lista.get(i)[2]);
             aux.setTelcontacto(lista.get(i)[3]);
             aux.setCorreo(lista.get(i)[4]);
+            aux.setRfc(lista.get(i)[5]);
+            aux.setDireccion(lista.get(i)[6]);
             listaEmpresas.add(aux);
         }
         System.out.println("++++"+listaEmpresas.size());
@@ -86,6 +88,8 @@ public class EmpresasBackBean implements Serializable{
         e.setNombrecontacto(tempEmpresa.getContacto());
         e.setTelcontacto(tempEmpresa.getTelefono());
         e.setCorreo(tempEmpresa.getCorreo());
+        e.setRfc(tempEmpresa.getRfc());
+        e.setDireccion(tempEmpresa.getDireccion());
         String resul=vh.guardarEmpresas(e);
         if(resul.equals("error")){
         }else{

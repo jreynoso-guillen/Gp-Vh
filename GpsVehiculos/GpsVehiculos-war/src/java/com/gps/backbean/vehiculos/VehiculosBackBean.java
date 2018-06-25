@@ -92,8 +92,8 @@ public class VehiculosBackBean implements Serializable{
             
             temp.setPlataforma(lista.get(i)[3]);
             temp.setIMEI(lista.get(i)[4]);
-            temp.setNumeroTelefono(Integer.parseInt(lista.get(i)[5]));
-            temp.setClave(Integer.parseInt(lista.get(i)[6]));
+            temp.setNumeroTelefono((lista.get(i)[5]));
+            temp.setClave((lista.get(i)[6]));
             temp.setSaldo(lista.get(i)[7]);
             try{
                 String fecha=lista.get(i)[8];
@@ -173,7 +173,7 @@ public class VehiculosBackBean implements Serializable{
             
 
         vhTemp= new vehiculoObj();
-        //cargarVehiculos();
+        cargarVehiculos();
         
     }
    
@@ -183,8 +183,8 @@ public class VehiculosBackBean implements Serializable{
         v.setFechaalta(vhTemp.getFechaAlta());
         v.setPlataforma(vhTemp.getPlataforma());
         v.setImei(vhTemp.getIMEI());
-        v.setNumerotelefonico(vhTemp.getNumeroTelefono());
-        v.setClave(vhTemp.getClave());
+        v.setNumerotelefonico((vhTemp.getNumeroTelefono()));
+        v.setClave(Integer.parseInt(vhTemp.getClave()));
         v.setSaldo(vhTemp.getSaldo());
         v.setFechavencimiento(vhTemp.getFechaVence());
         v.setTipodecobro(vhTemp.getTipoCobro());
@@ -196,6 +196,11 @@ public class VehiculosBackBean implements Serializable{
         v.setSerie(vhTemp.getSerie());
         v.setMotor(vhTemp.getMotor());
         v.setIdempresa((vhTemp.getEmpresa()));
+        if(vhTemp.isStatus()==true){
+            v.setStatus(true);
+        }else{
+            v.setStatus(false);
+        }
         
         String resul=vh.guardaVh(v);
         if(!resul.equals("error")){
@@ -205,6 +210,11 @@ public class VehiculosBackBean implements Serializable{
         cargarVehiculos();
     }
     
+    public void onDateSelected(Date date){
+        
+        System.out.println(date+"AQUI NOVATO");
+        
+    }
     //funcinones
     //set y gets
 

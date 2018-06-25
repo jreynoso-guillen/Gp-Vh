@@ -6,9 +6,7 @@
 package com.gps.ejb.entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -48,8 +45,12 @@ public class Empresas implements Serializable {
     @Size(max = 55)
     @Column(name = "CORREO")
     private String correo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idempresa")
-    private Collection<Vehiculos> vehiculosCollection;
+    @Size(max = 20)
+    @Column(name = "RFC")
+    private String rfc;
+    @Size(max = 255)
+    @Column(name = "DIRECCION")
+    private String direccion;
 
     public Empresas() {
     }
@@ -98,12 +99,20 @@ public class Empresas implements Serializable {
         this.correo = correo;
     }
 
-    public Collection<Vehiculos> getVehiculosCollection() {
-        return vehiculosCollection;
+    public String getRfc() {
+        return rfc;
     }
 
-    public void setVehiculosCollection(Collection<Vehiculos> vehiculosCollection) {
-        this.vehiculosCollection = vehiculosCollection;
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     @Override
