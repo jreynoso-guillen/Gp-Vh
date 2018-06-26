@@ -18,8 +18,8 @@ public class vehiculoObj {
     private String fechaAltaS;
     private String plataforma;
     private String IMEI;
-    private int numeroTelefono;
-    private int clave; 
+    private String numeroTelefono;
+    private String clave; 
     private String saldo;
     private Date fechaVence;
     private String fechaVenceS;
@@ -71,19 +71,19 @@ public class vehiculoObj {
         this.IMEI = IMEI;
     }
 
-    public int getNumeroTelefono() {
+    public String getNumeroTelefono() {
         return numeroTelefono;
     }
 
-    public void setNumeroTelefono(int numeroTelefono) {
+    public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
 
-    public int getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 

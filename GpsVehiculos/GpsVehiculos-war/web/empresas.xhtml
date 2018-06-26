@@ -26,26 +26,37 @@
                                 <p:commandButton id="btnEm" update=":formEmpresas1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{empresasBackBean.nuevaEmpresaAgregar()}"/>
                             </center>
                             <p:dataTable id="singleDT" var="obj" value="#{empresasBackBean.listaEmpresas}" selectionMode="single" emptyMessage="No hay registros de empresas"
-                                         rowKey="#{obj.idempresa}" widgetVar="empresasTable">
+                                         rowKey="#{obj.idempresa}" widgetVar="empresasTable" scrollable="true" scrollWidth="95%"
+                                         style="font-size: 16px !important;">
                                 <f:facet name="header">
                                     Empresas afiliadas a Gps-Tracker
+                                    <p:commandButton id="toggler" type="button" value="Columnas" style="float:right" icon="ui-icon-calculator" />
+                                    <p:columnToggler datasource="singleDT" trigger="toggler" >
+                                    </p:columnToggler>
                                 </f:facet>
-                                <p:column headerText="id">
-                                    <h:outputText value="#{obj.idempresa}"/>
+                                <p:column headerText="id" width="50">
+                                    <h:outputText value="#{obj.idempresa}" />
                                 </p:column>
-                                <p:column headerText="Nombre empresa">
+                                <p:column headerText="Nombre empresa" width="300">
                                     <h:outputText value="#{obj.nombreempresa}"/>
                                 </p:column>
-                                <p:column headerText="Nombre contato">
+                                <p:column headerText="Nombre contato" width="200">
                                     <h:outputText value="#{obj.nombrecontacto}"/>
                                 </p:column>
-                                <p:column headerText="Telefono">
+                                <p:column headerText="Telefono" width="200">
                                     <h:outputText value="#{obj.telcontacto}"/>
                                 </p:column>
-                                <p:column headerText="E-mail">
+                                <p:column headerText="E-mail" width="200">
                                     <h:outputText value="#{obj.correo}"/>
                                 </p:column>
-                                <p:column headerText="Eliminar">
+                                <p:column headerText="RFC" width="200">
+                                    <h:outputText value="#{obj.rfc}"/>
+                                </p:column>
+                                <p:column headerText="Direccion" width="200">
+                                    <h:outputText value="#{obj.direccion}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Eliminar" width="200">
                                     <p:commandButton value="Eliminar" actionListener="#{empresasBackBean.EliminarEmpresa(obj.idempresa)}" update=":formEmpresas:singleDT"/>
                                 </p:column>
                             </p:dataTable>
@@ -67,6 +78,11 @@
                                     <p:outputLabel value="E-mail"/>
                                     <p:inputText value="#{empresasBackBean.tempEmpresa.correo}"/>
                                     
+                                    <p:outputLabel value="RFC"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.rfc}"/>
+                                    
+                                    <p:outputLabel value="Direccion"/>
+                                    <p:inputText value="#{empresasBackBean.tempEmpresa.direccion}"/>
 
                                 </p:panelGrid>
                                 <p:commandButton value="Agregar" actionListener="#{empresasBackBean.guardarEmpresa}" oncomplete="PF('tablaDialog').hide()" update=":formEmpresas"/>

@@ -49,8 +49,9 @@ public class Vehiculos implements Serializable {
     @Size(max = 255)
     @Column(name = "IMEI")
     private String imei;
+    @Size(max = 55)
     @Column(name = "NUMEROTELEFONICO")
-    private Integer numerotelefonico;
+    private String numerotelefonico;
     @Column(name = "CLAVE")
     private Integer clave;
     @Size(max = 55)
@@ -142,11 +143,11 @@ public class Vehiculos implements Serializable {
         this.imei = imei;
     }
 
-    public Integer getNumerotelefonico() {
+    public String getNumerotelefonico() {
         return numerotelefonico;
     }
 
-    public void setNumerotelefonico(Integer numerotelefonico) {
+    public void setNumerotelefonico(String numerotelefonico) {
         this.numerotelefonico = numerotelefonico;
     }
 

@@ -15,6 +15,8 @@ public class empresaObj {
     private String contacto;
     private String telefono;
     private String correo;
+    private String rfc;
+    private String direccion;
 
     public empresaObj(){
     }
@@ -56,6 +58,22 @@ public class empresaObj {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
     
     
