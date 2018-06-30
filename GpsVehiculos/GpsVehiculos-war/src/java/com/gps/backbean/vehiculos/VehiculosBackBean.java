@@ -26,7 +26,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Scope;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.Visibility;
 
@@ -44,6 +46,7 @@ public class VehiculosBackBean implements Serializable{
     
     private List<Vehiculos> listaVehiculos;
     private List<vehiculoObj> listaVh;
+    private vehiculoObj selected;
     private vehiculoObj vhT;
     private List<empresaObj> listaEmpresas;
     
@@ -155,16 +158,24 @@ public class VehiculosBackBean implements Serializable{
     
     
     public void modificaVh(vehiculoObj obj){
-        System.out.println("entrando");
+        System.out.println("entrando"+obj.getId());
+        //System.out.println(selected.getId());
         Vehiculos vt = new Vehiculos();
         vt.setIdvehiculo(obj.getId());
         vt.setSaldo(obj.getSaldo());
         vt.setFechavencimiento(obj.getFechaVence());
-        vt.setStatus(obj.isStatus());
+        System.out.println(obj.isStatus());
+        if(obj.isStatus()==true){
+            vt.setStatus(true);
+        }else{
+            vt.setStatus(false);
+        }
+        
         
         try{
             String resul=vh.modifica(vt);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje", "Guardado con éxito!"));
+            //RequestContext.getCurrentInstance().update("mg:growl");
         
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Algo fallo al modificar el campo"));
@@ -172,8 +183,11 @@ public class VehiculosBackBean implements Serializable{
 
             
 
-        vhTemp= new vehiculoObj();
-        cargarVehiculos();
+        //vhTemp= new vehiculoObj();
+        System.out.println("SALIENDO"+obj.getId());
+        //cargarVehiculos();
+        //RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+        
         
     }
    
@@ -213,6 +227,11 @@ public class VehiculosBackBean implements Serializable{
     public void onDateSelected(Date date){
         
         System.out.println(date+"AQUI NOVATO");
+        
+    }
+    
+    public void cambiaStatus(AjaxBehaviorEvent event){
+        
         
     }
     //funcinones
@@ -282,6 +301,14 @@ public class VehiculosBackBean implements Serializable{
 
     public void setList(List<Boolean> list) {
         this.list = list;
+    }
+
+    public vehiculoObj getSelected() {
+        return selected;
+    }
+
+    public void setSelected(vehiculoObj selected) {
+        this.selected = selected;
     }
 
   

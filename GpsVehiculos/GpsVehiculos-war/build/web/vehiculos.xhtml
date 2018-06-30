@@ -19,13 +19,15 @@
 
                     <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** --> 
                     <br/>
+                    <h:form id="mg">
+                        <p:growl id="growl" showDetail="true" life="30000" />
+                    </h:form>
                         <h:form id="formVh">
-                            <p:growl id="growl" showDetail="true" sticky="false" />
                             <p:commandButton id="btnEm" update=":formVh1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{vehiculosBackBean.agregarNuevoVh}"/>
                             <p:dataTable value="#{vehiculosBackBean.listaVh}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
-                                         selectionMode="single" rowKey="#{e.id}"  widgetVar="dataTableWidgetVar" editable="true"
+                                         selectionMode="single" selection="#{vehiculosBackBean.selected}" rowKey="#{e.id}"  widgetVar="dataTableWidgetVar" editable="true"
                                          rows="20" paginator="true" scrollable="true" scrollWidth="95%" style="font-size: 16px !important;"
-                                         multiViewState="true">
+                                         multiViewState="true" rowStyleClass="#{e.status eq true ? null:'red'}">
                                          >
                                 <f:facet name="header">
                                     Vehiculos afiliados a Gps-Tracker
@@ -90,7 +92,12 @@
                                     <h:outputText value="#{e.motor}"/>
                                 </p:column>
                                 <p:column headerText="Activo" width="200" visible="#{vehiculosBackBean.list[17]}"><center>
-                                    <p:selectBooleanCheckbox value="#{e.status}" style="border: 0px !important;"/></center>
+                                        <p:selectOneMenu id="somActivo" value="#{e.status}">
+                                            <p:ajax update="somActivo"/>
+                                            <f:selectItem itemLabel="ACTIVO" itemValue="true"/>
+                                            <f:selectItem itemLabel="DESHABILITADO" itemValue="false"/>
+                                            
+                                        </p:selectOneMenu></center>
                                 </p:column>
                                 <p:column headerText="Empresa" width="200" visible="#{vehiculosBackBean.list[18]}">
                                     <p:selectOneMenu id="somE" value="#{e.empresa}" >
@@ -98,7 +105,9 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column headerText="Guardar" width="200" >
-                                    <p:commandButton value="Guardar" actionListener="#{vehiculosBackBean.modificaVh(e)}" update=":formVh" oncomplete="PF('dataTableWidgetVar').clearFilters()"/>
+                                    <p:commandButton value="Guardar" oncomplete="PF('dataTableWidgetVar').clearFilters()" ajax="false">
+                                        <p:ajax listener="#{vehiculosBackBean.modificaVh(e)}" />
+                                    </p:commandButton>
                                 </p:column>
                                 
                             </p:dataTable>

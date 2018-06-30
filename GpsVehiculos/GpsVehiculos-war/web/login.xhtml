@@ -15,13 +15,13 @@
             
             <!-- *******************************TU CODIGO AQUI. NO MOVER LO DEMAS.******************************************** -->   
             <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/>
+            <div class="ui-fluid">
             <center>
                 <p:panel header="Inicio de session" style=" width: 25%;">
                     <center>
                         <h:form>
+                            <p:graphicImage name="imagenes/LOGO_PLATAFORMA-JPG.jpg" /><br/>
                             <p:inputText id="userId" value="#{loginBackBean.usuario}" placeholder="Usuario" required="true" requiredMessage="Ingrese un usuario valido"/>
                                 <br/>
                                 <p:password id="userPass" value="#{loginBackBean.contraseña}" placeholder="Contraseña" required="true" requiredMessage="Ingrese una contraseña"/>
@@ -36,7 +36,7 @@
                 </p:panel>    
             </center>
             
-            
+            </div>
             
             <!-- ************************************************************************************************************* -->           
         </h:body>
