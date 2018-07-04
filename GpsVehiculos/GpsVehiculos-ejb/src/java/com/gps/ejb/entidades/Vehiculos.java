@@ -50,10 +50,13 @@ public class Vehiculos implements Serializable {
     @Column(name = "IMEI")
     private String imei;
     @Size(max = 55)
+    @Column(name = "GPSMARCA")
+    private String gpsmarca;
+    @Size(max = 55)
     @Column(name = "NUMEROTELEFONICO")
     private String numerotelefonico;
     @Column(name = "CLAVE")
-    private Integer clave;
+    private String clave;
     @Size(max = 55)
     @Column(name = "SALDO")
     private String saldo;
@@ -151,11 +154,11 @@ public class Vehiculos implements Serializable {
         this.numerotelefonico = numerotelefonico;
     }
 
-    public Integer getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(Integer clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 
@@ -254,6 +257,16 @@ public class Vehiculos implements Serializable {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public String getGpsmarca() {
+        return gpsmarca;
+    }
+
+    public void setGpsmarca(String gpsmarca) {
+        this.gpsmarca = gpsmarca;
+    }
+    
+    
 
     @Override
     public int hashCode() {

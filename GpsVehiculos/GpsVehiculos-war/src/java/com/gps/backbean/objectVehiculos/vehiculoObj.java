@@ -33,6 +33,7 @@ public class vehiculoObj {
     private String motor;
     private int empresa;
     private boolean status;
+    private String gpsMarca;
     
     public vehiculoObj(){
     }
@@ -207,6 +208,14 @@ public class vehiculoObj {
 
     public void setFechaVenceS(String fechaVenceS) {
         this.fechaVenceS = fechaVenceS;
+    }
+
+    public String getGpsMarca() {
+        return gpsMarca;
+    }
+
+    public void setGpsMarca(String gpsMarca) {
+        this.gpsMarca = gpsMarca;
     }
     
     

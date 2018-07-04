@@ -54,6 +54,9 @@
                                 <p:column headerText="IMEI" width="200" visible="#{vehiculosBackBean.list[4]}">
                                     <h:outputText value="#{e.IMEI}"/>
                                 </p:column>
+                                <p:column headerText="GPS Marca" width="200" visible="#{vehiculosBackBean.list[19]}">
+                                    <h:outputText value="#{e.gpsMarca}"/>
+                                </p:column>
                                 <p:column headerText="No Telefonico" width="200" visible="#{vehiculosBackBean.list[5]}">
                                     <h:outputText value="#{e.numeroTelefono}"/>
                                 </p:column>
@@ -127,6 +130,9 @@
                                 
                                 <p:outputLabel value="IMEI"/>
                                 <p:inputText value="#{vehiculosBackBean.vhTemp.IMEI}" required="true"/>
+                                
+                                <p:outputLabel value="GPS Marca"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.gpsMarca}" required="true"/>
                                 
                                 <p:outputLabel value="Numero telefonico"/>
                                 <p:inputText value="#{vehiculosBackBean.vhTemp.numeroTelefono}" required="true"/>

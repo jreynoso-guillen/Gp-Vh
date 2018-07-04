@@ -60,7 +60,7 @@ public class VehiculosBackBean implements Serializable{
         listaEmpresas = null;
         vhTemp= new vehiculoObj();
         listaVh= new ArrayList<>();
-        list=  Arrays.asList(false,true,false,false,false,true,true,true,true,true,true,false,false,false,false,false,false,true,true);
+        list=  Arrays.asList(false,true,false,false,false,true,true,true,true,true,true,false,false,false,false,false,false,true,true,true);
         //list = Arrays.asList(false, true, true);
     }
     public void onToggle(ToggleEvent e) {
@@ -129,6 +129,7 @@ public class VehiculosBackBean implements Serializable{
             }else{
                 temp.setStatus(false);
             }
+            temp.setGpsMarca(lista.get(i)[19]);
             
             listaVh.add(temp);
         }
@@ -198,7 +199,7 @@ public class VehiculosBackBean implements Serializable{
         v.setPlataforma(vhTemp.getPlataforma());
         v.setImei(vhTemp.getIMEI());
         v.setNumerotelefonico((vhTemp.getNumeroTelefono()));
-        v.setClave(Integer.parseInt(vhTemp.getClave()));
+        v.setClave((vhTemp.getClave()));
         v.setSaldo(vhTemp.getSaldo());
         v.setFechavencimiento(vhTemp.getFechaVence());
         v.setTipodecobro(vhTemp.getTipoCobro());
@@ -215,6 +216,7 @@ public class VehiculosBackBean implements Serializable{
         }else{
             v.setStatus(false);
         }
+        v.setGpsmarca(vhTemp.getGpsMarca());
         
         String resul=vh.guardaVh(v);
         if(!resul.equals("error")){

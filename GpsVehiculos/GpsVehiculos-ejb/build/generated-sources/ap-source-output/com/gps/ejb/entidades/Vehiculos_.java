@@ -11,11 +11,12 @@ public abstract class Vehiculos_ {
 
 	public static volatile SingularAttribute<Vehiculos, String> nombrevehiculo;
 	public static volatile SingularAttribute<Vehiculos, String> motor;
-	public static volatile SingularAttribute<Vehiculos, Integer> clave;
+	public static volatile SingularAttribute<Vehiculos, String> clave;
 	public static volatile SingularAttribute<Vehiculos, String> numerotelefonico;
 	public static volatile SingularAttribute<Vehiculos, String> cuentatelcel;
 	public static volatile SingularAttribute<Vehiculos, Integer> idvehiculo;
 	public static volatile SingularAttribute<Vehiculos, String> saldo;
+	public static volatile SingularAttribute<Vehiculos, String> gpsmarca;
 	public static volatile SingularAttribute<Vehiculos, Date> fechavencimiento;
 	public static volatile SingularAttribute<Vehiculos, String> modelo;
 	public static volatile SingularAttribute<Vehiculos, String> an;
