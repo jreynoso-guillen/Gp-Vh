@@ -47,7 +47,7 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
             String regresa="";
             Usuarios usu = new Usuarios();
             
-            String sql="SELECT * FROM `usuarios` u WHERE u.`USUAIO`="+u+" AND pass='"+c+"'";
+            String sql="SELECT * FROM `usuarios` u WHERE u.`USUAIO`='"+u+"' AND pass='"+c+"'";
             
             return XMLTools.xmlQueryBase(sql, "base", "hijo");
         }

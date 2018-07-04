@@ -153,7 +153,7 @@ public class VehiculosBackBean implements Serializable{
     } 
     
     public void agregarNuevoVh(){
-        //vhTemp= null;
+        vhTemp= new vehiculoObj();
     }
     
     
@@ -220,7 +220,7 @@ public class VehiculosBackBean implements Serializable{
         if(!resul.equals("error")){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Guardado con éxito!"));
         }
-        
+        vhTemp=null;
         cargarVehiculos();
     }
     

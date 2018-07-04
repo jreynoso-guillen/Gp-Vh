@@ -36,8 +36,9 @@ public class Usuarios implements Serializable {
     private Integer idusuario;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 55)
     @Column(name = "USUAIO")
-    private int usuaio;
+    private String usuaio;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
@@ -51,7 +52,7 @@ public class Usuarios implements Serializable {
         this.idusuario = idusuario;
     }
 
-    public Usuarios(Integer idusuario, int usuaio, String pass) {
+    public Usuarios(Integer idusuario, String usuaio, String pass) {
         this.idusuario = idusuario;
         this.usuaio = usuaio;
         this.pass = pass;
@@ -65,11 +66,11 @@ public class Usuarios implements Serializable {
         this.idusuario = idusuario;
     }
 
-    public int getUsuaio() {
+    public String getUsuaio() {
         return usuaio;
     }
 
-    public void setUsuaio(int usuaio) {
+    public void setUsuaio(String usuaio) {
         this.usuaio = usuaio;
     }
 

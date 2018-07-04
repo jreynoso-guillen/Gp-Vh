@@ -9,19 +9,6 @@
             <view-id value="/faces/login.xhtml" />
     </url-mapping>
     
-    <url-mapping id="vehiculos">
-            <pattern value="/Vehiculos/" />
-            <view-id value="/faces/index.xhtml" />
-    </url-mapping>
-    
-    <url-mapping id="vehiculos">
-            <pattern value="/Vehiculos/" />
-            <view-id value="/faces/vehiculos.xhtml" />
-    </url-mapping>
-    
-    <url-mapping id="empresas">
-            <pattern value="/Empresas/" />
-            <view-id value="/faces/empresas.xhtml" />
-    </url-mapping>
+
 
 </pretty-config>
