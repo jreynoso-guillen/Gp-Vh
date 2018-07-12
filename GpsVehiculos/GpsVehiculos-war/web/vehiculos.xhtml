@@ -94,7 +94,16 @@
                                 <p:column headerText="Motor" width="200" visible="#{vehiculosBackBean.list[16]}">
                                     <h:outputText value="#{e.motor}"/>
                                 </p:column>
-                                <p:column headerText="Activo" width="200" visible="#{vehiculosBackBean.list[17]}"><center>
+                                         <p:column headerText="Activo" width="300" visible="#{vehiculosBackBean.list[17]}" filterBy="#{e.status}" filterMatchMode="exact"><center>
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('dataTableWidgetVar').filter()">
+                                                <f:converter converterId="javax.faces.Boolean" />
+                                                <f:selectItem itemLabel="Todos" itemValue="" />
+                                                <f:selectItem itemLabel="ACTIVO" itemValue="true" />
+                                                <f:selectItem itemLabel="DESHABILITADO" itemValue="false" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                       
                                         <p:selectOneMenu id="somActivo" value="#{e.status}">
                                             <p:ajax update="somActivo"/>
                                             <f:selectItem itemLabel="ACTIVO" itemValue="true"/>
@@ -102,11 +111,23 @@
                                             
                                         </p:selectOneMenu></center>
                                 </p:column>
+                                <p:column headerText="Colaborador" visible="#{vehiculosBackBean.list[20]}" width="250">
+                                    <h:outputText value="#{e.colaborador}"/>
+                                </p:column>
                                 <p:column headerText="Empresa" width="200" visible="#{vehiculosBackBean.list[18]}">
                                     <p:selectOneMenu id="somE" value="#{e.empresa}" >
                                         <f:selectItems  value="#{vehiculosBackBean.listaEmpresas}" var="vh" itemLabel="#{vh.nombre}" itemValue="#{vh.id}"/>
                                     </p:selectOneMenu>
                                 </p:column>
+                                         
+                                <p:column  headerText="Pagado" width="200"  rendered="#{vehiculosBackBean.mostrarPagado}" visible="#{vehiculosBackBean.list[20]}"><center>
+                                   <p:selectOneMenu id="somPagado" value="#{e.pagado}">
+                                       <p:ajax update="somPagado"/>
+                                       <f:selectItem itemLabel="Pagado" itemValue="true"/>
+                                       <f:selectItem itemLabel="Sin pagar" itemValue="false"/>
+                                    </p:selectOneMenu></center>
+                                </p:column>
+                                         
                                 <p:column headerText="Guardar" width="200" >
                                     <p:commandButton value="Guardar" oncomplete="PF('dataTableWidgetVar').clearFilters()" ajax="false">
                                         <p:ajax listener="#{vehiculosBackBean.modificaVh(e)}" />
@@ -170,6 +191,9 @@
                                 <p:outputLabel value="Motor"/>
                                 <p:inputText value="#{vehiculosBackBean.vhTemp.motor}" required="true"/>
                                 
+                                <p:outputLabel value="Colaborador"/>
+                                <p:inputText value="#{vehiculosBackBean.vhTemp.colaborador}"/>
+                                
                                 <p:outputLabel value="Activo"/>
                                 <p:selectBooleanCheckbox value="#{vehiculosBackBean.vhTemp.status}" /> 
                                 
@@ -179,7 +203,7 @@
                                 </p:selectOneMenu>
                                 
                             </p:panelGrid>
-                            <p:commandButton value="Agregar" actionListener="#{vehiculosBackBean.guardaVh}" oncomplete="PF('tablaDialog').hide()" update=":formVh"/>
+                            <p:commandButton value="Agregar" actionListener="#{vehiculosBackBean.guardaVh}" oncomplete="PF('tablaDialog').hide()" update="mg:growl,:formVh"/>
                         </h:form>
                     </p:dialog>
                     

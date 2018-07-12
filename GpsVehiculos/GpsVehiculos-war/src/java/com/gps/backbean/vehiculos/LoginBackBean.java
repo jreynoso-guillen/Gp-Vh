@@ -34,7 +34,7 @@ public class LoginBackBean implements Serializable{
     private String contraseña = "";
     
     private String sessionId="";
-    private int idUsuario=0;
+    private int idUsuario;
     
     @EJB
     private AdmVehiculosFacadeLocal vh;  
@@ -66,6 +66,7 @@ public class LoginBackBean implements Serializable{
         if(lista.size()>0){
             //si encontro al usuario y la contraseña
             idUsuario=Integer.parseInt(lista.get(0)[0]);
+            System.out.println("usuarioId="+idUsuario);
             System.out.println(idUsuario+"--idusuario");
             FacesContext fctx = FacesContext.getCurrentInstance();
             ExternalContext ectx = fctx.getExternalContext();

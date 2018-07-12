@@ -52,7 +52,7 @@ public class Vehiculos implements Serializable {
     @Size(max = 55)
     @Column(name = "GPSMARCA")
     private String gpsmarca;
-    @Size(max = 55)
+    @Size(max = 75)
     @Column(name = "NUMEROTELEFONICO")
     private String numerotelefonico;
     @Column(name = "CLAVE")
@@ -93,6 +93,11 @@ public class Vehiculos implements Serializable {
     private int idempresa;
     @Column(name = "STATUS")
     private Boolean status;
+    @Column(name = "PAGADO")
+    private Boolean pagado;
+    @Size(max = 255)
+    @Column(name = "COLABORADOR")
+    private String colaborador;
 
     public Vehiculos() {
     }
@@ -265,6 +270,24 @@ public class Vehiculos implements Serializable {
     public void setGpsmarca(String gpsmarca) {
         this.gpsmarca = gpsmarca;
     }
+
+    public Boolean getPagado() {
+        return pagado;
+    }
+
+    public void setPagado(Boolean pagado) {
+        this.pagado = pagado;
+    }
+
+    public String getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(String colaborador) {
+        this.colaborador = colaborador;
+    }
+    
+    
     
     
 

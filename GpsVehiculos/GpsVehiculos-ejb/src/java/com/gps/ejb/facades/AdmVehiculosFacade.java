@@ -9,6 +9,7 @@ import com.gps.ejb.entidades.Empresas;
 import com.gps.ejb.entidades.Usuarios;
 import com.gps.ejb.entidades.Vehiculos;
 import com.gps.ejb.utilerias.XMLTools;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -71,7 +72,6 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
         
         public String eliminarEmpresa(String id){
             try{
-                System.out.println("---si eliminando"+id);
                 Empresas emp = em.find(Empresas.class, Integer.parseInt(id));
                 em.remove(emp);
                 em.flush();
@@ -83,7 +83,7 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
         }
         
         public String cargaVehiculos(){
-            String sql="SELECT * FROM `vehiculos`";
+            String sql="SELECT * FROM `vehiculos` v ORDER BY v.`STATUS`=1 DESC ";
             
             return XMLTools.xmlQueryBase(sql, "base", "hijo");
         }
@@ -95,13 +95,13 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
         }
         
         public String modifica(Vehiculos v){
-            System.out.println("segundo");
             Vehiculos vh= new Vehiculos();
             vh= em.find(Vehiculos.class, v.getIdvehiculo());
             
             if(vh!=null){
                 vh.setStatus(v.getStatus());
                 vh.setSaldo(v.getSaldo());
+                vh.setPagado(v.getPagado());
                 vh.setFechavencimiento(v.getFechavencimiento());
                 em.merge(vh);
                 em.flush();
@@ -125,6 +125,39 @@ public class AdmVehiculosFacade implements AdmVehiculosFacadeLocal{
             
             
             
+        }
+        
+        public boolean validaImei(String i){
+            System.out.println("Validando IMEI");
+            Boolean r= true;
+            String sql="SELECT * FROM `vehiculos` v WHERE v.`IMEI` ='"+i+"'";
+            String re=XMLTools.xmlQueryBase(sql, "base", "hijo");
+            
+            XMLTools xml = new XMLTools();
+            List<String[]> lista= xml.parseXMLtoListString(re, "hijo");
+            
+            if(lista.size()>0)
+                r=false;
+            
+            
+            
+            return r;
+        }
+        
+        public boolean validaTelefono(String i){
+            Boolean r= true;
+            String sql="SELECT * FROM `vehiculos` v WHERE v.`NUMEROTELEFONICO` ='"+i+"'";
+            String re=XMLTools.xmlQueryBase(sql, "base", "hijo");
+            
+            XMLTools xml = new XMLTools();
+            List<String[]> lista= xml.parseXMLtoListString(re, "hijo");
+            
+            if(lista.size()>0)
+                r=false;
+            
+            
+            
+            return r;
         }
     
 }

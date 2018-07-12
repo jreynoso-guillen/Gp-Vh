@@ -34,4 +34,7 @@ public interface AdmVehiculosFacadeLocal {
     
     public String guardaVh(Vehiculos v);
     
+    public boolean validaImei(String i);
+    
+    public boolean validaTelefono(String i);
 }

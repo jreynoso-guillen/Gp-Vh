@@ -34,6 +34,8 @@ public class vehiculoObj {
     private int empresa;
     private boolean status;
     private String gpsMarca;
+    private boolean pagado;
+    private String colaborador;
     
     public vehiculoObj(){
     }
@@ -216,6 +218,22 @@ public class vehiculoObj {
 
     public void setGpsMarca(String gpsMarca) {
         this.gpsMarca = gpsMarca;
+    }
+
+    public boolean isPagado() {
+        return pagado;
+    }
+
+    public void setPagado(boolean pagado) {
+        this.pagado = pagado;
+    }
+
+    public String getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(String colaborador) {
+        this.colaborador = colaborador;
     }
     
     

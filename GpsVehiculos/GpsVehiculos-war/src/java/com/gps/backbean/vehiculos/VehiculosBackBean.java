@@ -25,9 +25,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Scope;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.Visibility;
@@ -55,12 +57,17 @@ public class VehiculosBackBean implements Serializable{
     private Empresas empTemp;
     
     private List<Boolean> list;
+    
+    private boolean mostrarPagado;
 
     public VehiculosBackBean(){
         listaEmpresas = null;
         vhTemp= new vehiculoObj();
         listaVh= new ArrayList<>();
-        list=  Arrays.asList(false,true,false,false,false,true,true,true,true,true,true,false,false,false,false,false,false,true,true,true);
+        list=  Arrays.asList(false,true,false,false,false,
+                true,true,true,true,true,
+                true,false,false,false,false,
+                false,false,true,true,true,true, true);
         //list = Arrays.asList(false, true, true);
     }
     public void onToggle(ToggleEvent e) {
@@ -68,7 +75,6 @@ public class VehiculosBackBean implements Serializable{
     }
     
     public String cargarVehiculos(){
-        System.out.println("Cargando vehiculos");
         //listaVehiculos = new ArrayList<>();
         listaVh= new ArrayList<>();
         String xmlConsul=vh.cargaVehiculos();
@@ -100,14 +106,11 @@ public class VehiculosBackBean implements Serializable{
             temp.setSaldo(lista.get(i)[7]);
             try{
                 String fecha=lista.get(i)[8];
-                System.out.println(fecha+"--");
                 Date fechaD;
                 fechaD=formatoDelTexto.parse(fecha);
-                System.out.println(fechaD+"Date");
                 String fecha2;
                 fecha2=formatoDelTexto2.format(fechaD);
                 temp.setFechaVenceS(fecha2);
-                System.out.println(fecha2+"----");
                 fechaD=formatoDelTexto.parse(fecha);
                 
                 temp.setFechaVence(fechaD);;
@@ -130,6 +133,20 @@ public class VehiculosBackBean implements Serializable{
                 temp.setStatus(false);
             }
             temp.setGpsMarca(lista.get(i)[19]);
+            if(lista.get(i)[20].equals("1")){
+                temp.setPagado(true);
+            }else{
+                temp.setPagado(false);
+            }
+            
+            temp.setColaborador(lista.get(i)[21]);
+            FacesContext fctx = FacesContext.getCurrentInstance();
+            ExternalContext ectx = fctx.getExternalContext();
+            HttpSession session = (HttpSession) ectx.getSession(false);
+            int usr = Integer.parseInt(session.getAttribute("idUsuario").toString());
+            if(usr==3){
+                mostrarPagado=true;
+            }
             
             listaVh.add(temp);
         }
@@ -159,17 +176,21 @@ public class VehiculosBackBean implements Serializable{
     
     
     public void modificaVh(vehiculoObj obj){
-        System.out.println("entrando"+obj.getId());
         //System.out.println(selected.getId());
         Vehiculos vt = new Vehiculos();
         vt.setIdvehiculo(obj.getId());
         vt.setSaldo(obj.getSaldo());
         vt.setFechavencimiento(obj.getFechaVence());
-        System.out.println(obj.isStatus());
         if(obj.isStatus()==true){
             vt.setStatus(true);
         }else{
             vt.setStatus(false);
+        }
+        
+        if(obj.isPagado()==true){
+            vt.setPagado(true);
+        }else{
+            vt.setPagado(false);
         }
         
         
@@ -185,14 +206,28 @@ public class VehiculosBackBean implements Serializable{
             
 
         //vhTemp= new vehiculoObj();
-        System.out.println("SALIENDO"+obj.getId());
         //cargarVehiculos();
-        //RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+        RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
         
         
     }
    
     public void guardaVh(){
+        
+        if(vh.validaImei(vhTemp.getIMEI())==false){
+           //FacesMessage message = new FacesMessage(" IMEI Ya existe " );
+           //FacesContext.getCurrentInstance().addMessage(null, message);
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en IMEI", "El IMEI ya existe")); 
+           RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           return;
+        }
+        
+        if(vh.validaTelefono(vhTemp.getNumeroTelefono())==false){
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en Teleofno", "El Telefono ya existe")); 
+           RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           return;
+        }
+        
         Vehiculos v = new Vehiculos();
         v.setNombrevehiculo(vhTemp.getNombre());
         v.setFechaalta(vhTemp.getFechaAlta());
@@ -216,19 +251,28 @@ public class VehiculosBackBean implements Serializable{
         }else{
             v.setStatus(false);
         }
+        v.setPagado(false);
         v.setGpsmarca(vhTemp.getGpsMarca());
+        v.setColaborador(vhTemp.getColaborador());
         
         String resul=vh.guardaVh(v);
         if(!resul.equals("error")){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Guardado con éxito!"));
         }
-        vhTemp=null;
+        vhTemp= new vehiculoObj();
         cargarVehiculos();
+    }
+    
+    public boolean validaImei(String imei){
+        Boolean retorno=false;
+        if(vh.validaImei(imei)==true){
+            
+        }
+        return retorno;
     }
     
     public void onDateSelected(Date date){
         
-        System.out.println(date+"AQUI NOVATO");
         
     }
     
@@ -311,6 +355,14 @@ public class VehiculosBackBean implements Serializable{
 
     public void setSelected(vehiculoObj selected) {
         this.selected = selected;
+    }
+
+    public boolean isMostrarPagado() {
+        return mostrarPagado;
+    }
+
+    public void setMostrarPagado(boolean mostrarPagado) {
+        this.mostrarPagado = mostrarPagado;
     }
 
   
