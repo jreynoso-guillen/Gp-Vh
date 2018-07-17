@@ -33,6 +33,7 @@ public class vehiculoObj {
     private String motor;
     private int empresa;
     private boolean status;
+    private String status2;
     private String gpsMarca;
     private boolean pagado;
     private String colaborador;
@@ -234,6 +235,14 @@ public class vehiculoObj {
 
     public void setColaborador(String colaborador) {
         this.colaborador = colaborador;
+    }
+
+    public String getStatus2() {
+        return status2;
+    }
+
+    public void setStatus2(String status2) {
+        this.status2 = status2;
     }
     
     

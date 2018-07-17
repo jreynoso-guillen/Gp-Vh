@@ -24,10 +24,12 @@
                     </h:form>
                         <h:form id="formVh">
                             <p:commandButton id="btnEm" update=":formVh1" oncomplete="PF('tablaDialog').show()"  value="Nueva" actionListener="#{vehiculosBackBean.agregarNuevoVh}"/>
+                            
                             <p:dataTable value="#{vehiculosBackBean.listaVh}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
                                          selectionMode="single" selection="#{vehiculosBackBean.selected}" rowKey="#{e.id}"  widgetVar="dataTableWidgetVar" editable="true"
-                                         rows="20" paginator="true" scrollable="true" scrollWidth="95%" style="font-size: 16px !important;"
-                                         multiViewState="true" rowStyleClass="#{e.status eq true ? null:'red'}">
+                                         rows="20" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         scrollable="true" scrollWidth="95%" style="font-size: 16px !important;"
+                                         multiViewState="true" rowStyleClass="#{e.status eq true ? null:'red'}"
                                          >
                                 <f:facet name="header">
                                     Vehiculos afiliados a Gps-Tracker
@@ -37,9 +39,15 @@
                                     </p:columnToggler>
                                 </f:facet>
                                 <p:column headerText="Id" width="30" visible="#{vehiculosBackBean.list[0]}">
+                                    <f:facet name="header">
+                                        <h:outputText value="Id" />
+                                    </f:facet>
                                     <h:outputText value="#{e.id}"/>
                                 </p:column>
                                 <p:column headerText="Nombre" filterBy="#{e.nombre}" width="300" filterMatchMode="contains" visible="#{vehiculosBackBean.list[1]}" >
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre" />
+                                    </f:facet>
                                     <h:outputText value="#{e.nombre}"/>
                                 </p:column>
                                 <p:column headerText="Fecha Alta"  width="250" visible="#{vehiculosBackBean.list[2]}">
@@ -94,22 +102,20 @@
                                 <p:column headerText="Motor" width="200" visible="#{vehiculosBackBean.list[16]}">
                                     <h:outputText value="#{e.motor}"/>
                                 </p:column>
-                                         <p:column headerText="Activo" width="300" visible="#{vehiculosBackBean.list[17]}" filterBy="#{e.status}" filterMatchMode="exact"><center>
+                                <p:column headerText="Activo" width="300" visible="#{vehiculosBackBean.list[17]}" filterBy="#{e.status}" filterMatchMode="equals" >
                                         <f:facet name="filter">
-                                            <p:selectOneMenu onchange="PF('dataTableWidgetVar').filter()">
-                                                <f:converter converterId="javax.faces.Boolean" />
-                                                <f:selectItem itemLabel="Todos" itemValue="" />
-                                                <f:selectItem itemLabel="ACTIVO" itemValue="true" />
-                                                <f:selectItem itemLabel="DESHABILITADO" itemValue="false" />
-                                            </p:selectOneMenu>
-                                        </f:facet>
-                                       
-                                        <p:selectOneMenu id="somActivo" value="#{e.status}">
-                                            <p:ajax update="somActivo"/>
-                                            <f:selectItem itemLabel="ACTIVO" itemValue="true"/>
-                                            <f:selectItem itemLabel="DESHABILITADO" itemValue="false"/>
-                                            
-                                        </p:selectOneMenu></center>
+                                                <p:selectOneMenu onchange="PF('dataTableWidgetVar').filter()">
+                                                    <f:converter converterId="javax.faces.Boolean" />
+                                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                                    <f:selectItem itemLabel="ACTIVO" itemValue="true" />
+                                                    <f:selectItem itemLabel="DESHABILITADO" itemValue="false" />
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                    <p:selectOneMenu id="somActivo" value="#{e.status}">
+                                        <p:ajax update="somActivo" listener="#{vehiculosBackBean.cambiaStatus(e.id, e.status)}"/>
+                                        <f:selectItem itemLabel="ACTIVO" itemValue="true"/>
+                                        <f:selectItem itemLabel="DESHABILITADO" itemValue="false"/>
+                                    </p:selectOneMenu>
                                 </p:column>
                                 <p:column headerText="Colaborador" visible="#{vehiculosBackBean.list[20]}" width="250">
                                     <h:outputText value="#{e.colaborador}"/>
@@ -120,21 +126,25 @@
                                     </p:selectOneMenu>
                                 </p:column>
                                          
-                                <p:column  headerText="Pagado" width="200"  rendered="#{vehiculosBackBean.mostrarPagado}" visible="#{vehiculosBackBean.list[20]}"><center>
+                                <p:column  headerText="Pagado" width="200"  rendered="#{vehiculosBackBean.mostrarPagado}" visible="#{vehiculosBackBean.list[20]}">
                                    <p:selectOneMenu id="somPagado" value="#{e.pagado}">
                                        <p:ajax update="somPagado"/>
                                        <f:selectItem itemLabel="Pagado" itemValue="true"/>
                                        <f:selectItem itemLabel="Sin pagar" itemValue="false"/>
-                                    </p:selectOneMenu></center>
+                                    </p:selectOneMenu>
                                 </p:column>
                                          
-                                <p:column headerText="Guardar" width="200" >
+                                <p:column headerText="Guardar" width="200" exportable="false" >
                                     <p:commandButton value="Guardar" oncomplete="PF('dataTableWidgetVar').clearFilters()" ajax="false">
                                         <p:ajax listener="#{vehiculosBackBean.modificaVh(e)}" />
                                     </p:commandButton>
                                 </p:column>
                                 
                             </p:dataTable>
+                            <h:commandLink>
+                                <p:graphicImage name="imagenes/excel.png" />
+                                <p:dataExporter target="singleDT" type="xls" fileName="Vehiculos" pageOnly="false"/>
+                            </h:commandLink>
                         </h:form>
                     
                     <p:dialog header="Datos del Vehiculo" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">

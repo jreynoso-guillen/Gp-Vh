@@ -129,8 +129,10 @@ public class VehiculosBackBean implements Serializable{
             temp.setEmpresa(nombreEmpresa.getIdempresa());
             if(lista.get(i)[18].equals("1")){
                 temp.setStatus(true);
+                temp.setStatus2("ACTIVO");
             }else{
                 temp.setStatus(false);
+                temp.setStatus2("DESHABILITADO");
             }
             temp.setGpsMarca(lista.get(i)[19]);
             if(lista.get(i)[20].equals("1")){
@@ -276,8 +278,18 @@ public class VehiculosBackBean implements Serializable{
         
     }
     
-    public void cambiaStatus(AjaxBehaviorEvent event){
-        
+    public void cambiaStatus(String id, boolean e){
+        System.out.println("AQUI..."+id);
+        for(vehiculoObj x:listaVh){
+            if(x.getId()==Integer.parseInt(id)){
+                if(e==true){
+                    x.setStatus2("ACTIVO");
+                }else{
+                    x.setStatus2("DESHABILITADO");
+                }
+                    
+            }
+        }
         
     }
     //funcinones
