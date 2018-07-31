@@ -27,9 +27,9 @@
                             
                             <p:dataTable value="#{vehiculosBackBean.listaVh}" var="e" id="singleDT" emptyMessage="No hay registros para mostrar"
                                          selectionMode="single" selection="#{vehiculosBackBean.selected}" rowKey="#{e.id}"  widgetVar="dataTableWidgetVar" editable="true"
-                                         rows="20" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         scrollable="true" scrollWidth="95%" style="font-size: 16px !important;"
-                                         multiViewState="true" rowStyleClass="#{e.status eq true ? null:'red'}"
+                                         rows="20" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                          style="font-size: 16px !important; table-layout: fixed !important;"
+                                         multiViewState="true" rowStyleClass="#{e.status eq true ? null:'red'} " 
                                          >
                                 <f:facet name="header">
                                     Vehiculos afiliados a Gps-Tracker
@@ -52,7 +52,7 @@
                                 </p:column>
                                 <p:column headerText="Fecha Alta"  width="250" visible="#{vehiculosBackBean.list[2]}">
                                     <h:outputText value="#{e.fechaAlta}">
-                                        <f:convertDateTime pattern="dd-MM-yyyy " />
+                                        <f:convertDateTime pattern="dd-MM-yyyy" />
                                     </h:outputText>
                                     
                                 </p:column>
@@ -62,7 +62,7 @@
                                 <p:column headerText="IMEI" width="200" visible="#{vehiculosBackBean.list[4]}">
                                     <h:outputText value="#{e.IMEI}"/>
                                 </p:column>
-                                <p:column headerText="GPS Marca" width="200" visible="#{vehiculosBackBean.list[19]}">
+                                <p:column headerText="GPS Marca" width="200" style="width: 200px !important;" visible="#{vehiculosBackBean.list[19]}">
                                     <h:outputText value="#{e.gpsMarca}"/>
                                 </p:column>
                                 <p:column headerText="No Telefonico" width="200" visible="#{vehiculosBackBean.list[5]}">
@@ -75,7 +75,10 @@
                                     <p:inputText value="#{e.saldo}"/>
                                 </p:column>
                                 <p:column headerText="Fecha Vencimiento" filterBy="#{e.fechaVenceS}" filterMatchMode="contains" width="250" visible="#{vehiculosBackBean.list[8]}">
-                                    <p:calendar value="#{e.fechaVence}" pattern="dd-MM-yyyy" showOn="button" onchange="#{vehiculosBackBean.onDateSelected(e.fechaVence)}"/>
+                                    
+                                    <p:calendar value="#{e.fechaVence}" pattern="dd-MM-yyyy" showOn="button" onchange="#{vehiculosBackBean.onDateSelected(e.fechaVence)}">
+                                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                                    </p:calendar>
                                 </p:column>
                                 <p:column headerText="Tipo de cobro" width="200" visible="#{vehiculosBackBean.list[9]}">
                                     <h:outputText value="#{e.tipoCobro}"/>
@@ -149,6 +152,9 @@
                     
                     <p:dialog header="Datos del Vehiculo" widgetVar="tablaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="position: fixed !important;">
                         <h:form id="formVh1">
+                            <p:scrollPanel style="height:450px">
+                                
+                            
                             <p:panelGrid columns="2" style="border: 0px !important;">
                                 <p:outputLabel value="Nombre vehiculo"/>
                                 <p:inputText value="#{vehiculosBackBean.vhTemp.nombre}" required="true"/>
@@ -213,6 +219,7 @@
                                 </p:selectOneMenu>
                                 
                             </p:panelGrid>
+                            </p:scrollPanel>
                             <p:commandButton value="Agregar" actionListener="#{vehiculosBackBean.guardaVh}" oncomplete="PF('tablaDialog').hide()" update="mg:growl,:formVh"/>
                         </h:form>
                     </p:dialog>

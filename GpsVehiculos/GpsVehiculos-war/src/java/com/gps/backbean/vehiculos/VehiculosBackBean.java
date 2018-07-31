@@ -64,7 +64,7 @@ public class VehiculosBackBean implements Serializable{
         listaEmpresas = null;
         vhTemp= new vehiculoObj();
         listaVh= new ArrayList<>();
-        list=  Arrays.asList(false,true,false,false,false,
+        list=  Arrays.asList(true,true,false,false,false,
                 true,true,true,true,true,
                 true,false,false,false,false,
                 false,false,true,true,true,true, true);
