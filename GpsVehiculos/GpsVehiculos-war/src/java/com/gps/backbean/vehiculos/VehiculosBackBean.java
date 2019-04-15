@@ -30,7 +30,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Scope;
 import javax.servlet.http.HttpSession;
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
+import org.primefaces.context.PrimeRequestContext;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.Visibility;
 
@@ -209,8 +210,8 @@ public class VehiculosBackBean implements Serializable{
 
         //vhTemp= new vehiculoObj();
         //cargarVehiculos();
-        RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
-        
+        //RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+        PrimeFaces.current().ajax().update("mg:growl,formVh:singleDT");
         
     }
    
@@ -220,13 +221,15 @@ public class VehiculosBackBean implements Serializable{
            //FacesMessage message = new FacesMessage(" IMEI Ya existe " );
            //FacesContext.getCurrentInstance().addMessage(null, message);
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en IMEI", "El IMEI ya existe")); 
-           RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           //PrimeRequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           PrimeFaces.current().ajax().update("mg:growl,formVh:singleDT");
            return;
         }
         
         if(vh.validaTelefono(vhTemp.getNumeroTelefono())==false){
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en Teleofno", "El Telefono ya existe")); 
-           RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           //RequestContext.getCurrentInstance().update("mg:growl,formVh:singleDT");
+           PrimeFaces.current().ajax().update("mg:growl,formVh:singleDT");
            return;
         }
         
